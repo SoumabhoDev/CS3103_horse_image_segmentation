@@ -9,7 +9,7 @@ from models.baseline_cnn import BaselineCNN
 from models.unet import UNet
 from utils import calculate_iou
 
-def train_model(model, loader, model_name, epochs=15, lr=1e-3, save_dir="results/checkpoints"):
+def train_model(model, loader, model_name, epochs=15, lr=0.005, save_dir="results/checkpoints"):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
     criterion = nn.BCEWithLogitsLoss()
@@ -49,9 +49,9 @@ def train_model(model, loader, model_name, epochs=15, lr=1e-3, save_dir="results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train Weizmann Horse Segmentation Models")
-    parser.add_argument("--data_dir", type=str, default="../weizmann_horse_db", help="Path to raw data")
-    parser.add_argument("--epochs", type=int, default=20, help="Number of training epochs")
-    parser.add_argument("--batch_size", type=int, default=8, help="Batch size")
+    parser.add_argument("--data_dir", type=str, default="weizmann_horse_db", help="Path to raw data")
+    parser.add_argument("--epochs", type=int, default=25, help="Number of training epochs")
+    parser.add_argument("--batch_size", type=int, default=4, help="Batch size")
     args = parser.parse_args()
 
     # Adjust path assuming script is run from project root or src directory

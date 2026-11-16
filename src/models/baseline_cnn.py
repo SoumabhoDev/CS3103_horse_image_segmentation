@@ -12,11 +12,25 @@ class BaselineCNN(nn.Module):
             nn.Conv2d(16, 32, 3, padding=1), 
             nn.BatchNorm2d(32),
             nn.ReLU(inplace=True), 
-            nn.MaxPool2d(2)
+            nn.MaxPool2d(2),
+
+            nn.Conv2d(32, 64, 3, padding=1), 
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True), 
+            nn.MaxPool2d(2),
+
+            nn.Conv2d(64, 128, 3, padding=1), 
+            nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True), 
+            nn.MaxPool2d(2),
         )
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(32, 16, 2, stride=2), 
+            nn.ConvTranspose2d(128, 64, 2, stride=2), 
             nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(64, 32, 2, stride=2), 
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(32, 16, 2, stride=2), 
+            nn.ReLU(inplace=True),            
             nn.ConvTranspose2d(16, 1, 2, stride=2)
         )
 

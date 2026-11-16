@@ -50,3 +50,20 @@ def get_loaders(root_dir, batch_size=8, test_split=0.2):
     test_loader = DataLoader(test_dataset, batch_size=4, shuffle=False)
     
     return train_loader, test_loader
+
+def get_base_datasets(root_dir, test_split=0.2):
+    """Returns the split datasets (train/val combined, and isolated test)"""
+    transform = transforms.Compose([
+        transforms.Resize((128, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    
+    dataset = WeizmannHorseDataset(root_dir=root_dir, transform=transform)
+    test_size = int(test_split * len(dataset))
+    train_size = len(dataset) - test_size
+    
+    generator = torch.Generator().manual_seed(42)
+    train_val_dataset, test_dataset = random_split(dataset, [train_size, test_size], generator=generator)
+    
+    return train_val_dataset, test_dataset
