@@ -50,7 +50,7 @@ def train_model(model, loader, model_name, epochs=15, lr=0.005, save_dir="result
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train Weizmann Horse Segmentation Models")
     parser.add_argument("--data_dir", type=str, default="weizmann_horse_db", help="Path to raw data")
-    parser.add_argument("--epochs", type=int, default=25, help="Number of training epochs")
+    parser.add_argument("--epochs", type=int, default=100, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=4, help="Batch size")
     args = parser.parse_args()
 
